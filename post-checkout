@@ -58,6 +58,10 @@ ticket_number = cur_br_name.match(TICKET_REGEXP).to_s
 #puts "first step: push #{current_branch_name} to origin"
 #push_branch_to_remote(current_branch_name)
 
+if ticket_number == ""
+  puts "No ticket number found. Just do nothing."
+  exit
+end
 
 puts "update #{ticket_number} status from 'Start Progress' to 'In Progess'"
 
