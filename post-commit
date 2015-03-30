@@ -53,11 +53,13 @@ TIME_REGEXP = /\d+[.]+\d+h/  # 0.5h, 2.0h
 
 cur_br_name = %x{git branch}.split("\n").select { |i| i[0] == "*" }.first.gsub("* ", "")
 
-commit_message = %x{git log -1 --abbrev-commit}.split("\n").last.strip
+commit_message = %x{git log -1 --pretty=format:"%B"}
 
-ticket_number = commit_message.match(TICKET_REGEXP).to_s
+commit_subject = %x{git log -1 --pretty=format:"%s"}
 
-worked_time = commit_message.match(TIME_REGEXP).to_s
+ticket_number = commit_subject.match(TICKET_REGEXP).to_s
+
+worked_time = commit_subject.match(TIME_REGEXP).to_s
 
 puts "log #{ticket_number} worked time to #{worked_time}"
 
