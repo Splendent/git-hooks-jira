@@ -92,20 +92,38 @@ else
          { "body" => "begin to work"}
         }]
     },
-    "fields" => {
-        "assignee" => {
-            "name" => jira_info["jira.username"]
-        }
+    # "fields" => {
+    #     "assignee" => {
+    #         "name" => jira_info["jira.username"]
+    #     }
 #        "resolution": {
 #            "name": "Fixed"
 #        }
-    },
+    # },
     "transition" => {
-        "id" => "11"
+        "id" => "31"
     }
 
   })
 
   JIRA::HttpClient.new(options).make_request('post', body, header)
+
+# API Reference: https://docs.atlassian.com/jira/REST/latest/#d2e4389
+  options = {
+    :ticket_number => ticket_number,
+    :resource      => "assignee",
+    :username      => jira_info["jira.username"],
+    :password      => jira_info["jira.password"]
+  }
+
+  body = JSON.generate(
+  {
+    "name" => jira_info["jira.username"]
+  })
+
+  JIRA::HttpClient.new(options).make_request('put', body, header)
+
+# https://confluence.atlassian.com/display/CLOUDKB/How+to+add+a+comment+during+a+transition
+
 end
 
