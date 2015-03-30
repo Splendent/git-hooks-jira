@@ -38,7 +38,7 @@ Change the property of files.
      
 * `sudo chmod +x prepare-commit-msg`
 
-Go to `post-commit` file, change site link to your JIRA address.
+Go to `post-commit` and `post-checkout` file, change site link to your JIRA address.
 
 ## Work pattern (Using Pull Request)
   
