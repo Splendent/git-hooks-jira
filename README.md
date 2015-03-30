@@ -1,6 +1,8 @@
 git-hooks-jira
 ==============
-  
+
+NOTE: This is fork from https://github.com/hebinbin/git-hooks-jira to customize our own needs.
+
 ## Description
   
   When you use JIRA, do you want to input JIRA-ticket in your commit message. Therefore, in the future, when you look back to code, you can easily know why you or your team member changed this code. In addtionally, by using Agile development, you also need to log time to let project management team knows what are doing now? How about this ticket? They can know how the project goes.
