@@ -14,7 +14,7 @@ NOTE: This is fork from https://github.com/hebinbin/git-hooks-jira to customize 
 
 ## How to use
 
-`git clone https://github.com/hebinbin/git-hooks-jira.git` to your local pc.
+`git clone https://github.com/hebinbin/git-hooks-jira.git` to your local Mac.
 
 Set you JIRA username and password in git config
 
