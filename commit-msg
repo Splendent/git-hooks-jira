@@ -10,7 +10,7 @@ end
 
 unless commit_message.match(TICKET_REGEXP)
   puts  "[ERROR] commit-message-format: JIRA ticket number is not existed."
-  exit(1)
+#  exit(1)
 end
 
 unless commit_message.match(TIME_REGEXP)
