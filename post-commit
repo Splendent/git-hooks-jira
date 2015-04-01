@@ -59,6 +59,11 @@ commit_subject = %x{git log -1 --pretty=format:"%s"}
 
 ticket_number = commit_subject.match(TICKET_REGEXP).to_s
 
+if ticket_number == ""
+  puts "No ticket number found. Just do nothing."
+  exit
+end
+
 worked_time = commit_subject.match(TIME_REGEXP).to_s
 
 puts "log #{ticket_number} worked time to #{worked_time}"
