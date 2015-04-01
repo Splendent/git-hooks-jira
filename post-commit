@@ -51,6 +51,8 @@ TICKET_REGEXP     = /[A-Z]+-\d+/    # WEB-12345
 
 TIME_REGEXP = /\d+[.]+\d+h/  # 0.5h, 2.0h
 
+CLOSE_ISSUE_REGEXP = /(((close|resolve)(s|d)?)|fix(e(s|d))?)/ # close issue, see https://help.github.com/articles/closing-issues-via-commit-messages/
+
 cur_br_name = %x{git branch}.split("\n").select { |i| i[0] == "*" }.first.gsub("* ", "")
 
 commit_message = %x{git log -1 --pretty=format:"%B"}
@@ -108,6 +110,35 @@ else
   )
 
   JIRA::HttpClient.new(options).make_request('post', body, header)
+  if commit_subject.match(CLOSE_ISSUE_REGEXP)
+    # log commit message to jira comment
+    options = {
+      :ticket_number => ticket_number,
+      :resource      => "transitions",
+      :username      => jira_info["jira.username"],
+      :password      => jira_info["jira.password"]
+    }
+
+    body = JSON.generate(
+     {"update" =>
+      { "comment" =>
+        [{ "add" =>
+           { "body" => "done work"}
+          }]
+      },
+      #{"errorMessages":[],"errors":{"assignee":"Field 'assignee' cannot be set. It is not on the appropriate screen, or unknown."}}
+      # "fields" => {
+      #     "assignee" => {
+      #         "name" => jira_info["jira.username"]
+      #     }
+      # },
+      "transition" => {
+          "id" => "41" #done
+      }
+    })
+
+    JIRA::HttpClient.new(options).make_request('post', body, header)
+  end
 end
 
 
